@@ -3286,13 +3286,13 @@ def run_dct_vq_example():
     wavfile.write("dct_vq_train_no_agc.wav", fs, soundsc(vq_d1))
     wavfile.write("dct_vq_test_no_agc.wav", fs, soundsc(vq_d2))
 
-    """
+
     import matplotlib.pyplot as plt
     plt.specgram(vq_d2, cmap="gray")
     plt.figure()
     plt.specgram(fix_d2, cmap="gray")
     plt.show()
-    """
+
 
     agc_d1, freq_d1, energy_d1 = time_attack_agc(fix_d1, fs, .5, 5)
     agc_d2, freq_d2, energy_d2 = time_attack_agc(fix_d2, fs, .5, 5)
@@ -3743,7 +3743,7 @@ def mgcep(windowed_signal, order=25, alpha=0.35, gamma=0.0):
 
 
 def run_mgc_example():
-    fs, x = wavfile.read("test16k.wav")
+    fs, x = wavfile.read("sample.wav")
     pos = 3000
     fftlen = 1024
     win = np.blackman(fftlen) / np.sqrt(np.sum(np.blackman(fftlen) ** 2))
@@ -3758,11 +3758,12 @@ def run_mgc_example():
 
 
 if __name__ == "__main__":
-    run_mgc_example()
-    """
+    run_dct_vq_example()
+    """run_mgc_exobample()
+
     Trying to run all examples will seg fault on my laptop - probably memory!
     Comment individually
-    run_world_example()
+
     run_phase_reconstruction_example()
     run_phase_vq_example()
     run_dct_vq_example()
