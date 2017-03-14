@@ -1,0 +1,20 @@
+http://vis.uky.edu/~cheung/courses/ee639_fall04/readings/ccv.pdf
+https://es.wikipedia.org/wiki/Histograma_de_color
+http://www.computing.dcu.ie/~gjones/Teaching/CA437/stricker95similarity.pdf
+http://www.ariel.ac.il/sites/ofirpele/publications/ECCV2010.pdf
+http://www.pyimagesearch.com/2014/07/14/3-ways-compare-histograms-using-opencv-python/
+http://stackoverflow.com/questions/6499491/comparing-two-histograms
+http://stats.stackexchange.com/questions/109618/computing-image-similarity-based-on-color-distribution ->
+  cuidado, que nos puede interesar que las distancias estén ponderadas para que colores que "se parezcan" 
+  produzcan una similitud mayor.
+http://www.is.informatik.uni-duisburg.de/courses/ir_ss05/folien/colorsearch-ho.pdf
+http://stackoverflow.com/questions/11323119/how-to-compare-two-color-histogram -> ejemplo sencillo
+http://www.cs.cornell.edu/~rdz/papers/pz-jms99.pdf
+http://www.research.ibm.com/people/j/jyhu/icpr00.pdf -> no creo que valga de mucho pero tiene referencias numerosas
+http://cmm.ensmp.fr/~marcoteg/cv/publi_pdf/CAIP07_Hanbury_Marcotegui.pdf -> Comparan contra una base de datos y 
+  explican bastante cómo hacen las cositas
+https://www.ijsr.net/archive/v2i1/IJSRON2013311.pdf
+https://staff.fnwi.uva.nl/th.gevers/pub/GeversMM02.pdf
+http://download.springer.com/static/pdf/599/chp%253A10.1007%252F978-3-540-76414-4_4.pdf?originUrl=http%3A%2F%2Flink.springer.com%2Fchapter%2F10.1007%2F978-3-540-76414-4_4&token2=exp=1489175737~acl=%2Fstatic%2Fpdf%2F599%2Fchp%25253A10.1007%25252F978-3-540-76414-4_4.pdf%3ForiginUrl%3Dhttp%253A%252F%252Flink.springer.com%252Fchapter%252F10.1007%252F978-3-540-76414-4_4*~hmac=08844abfa245a3036cbb147d63b85d5b5fc32f66fb3c515b44fcbb01402cc168
+http://airccse.org/journal/acij/papers/0312acij15.pdf
+https://imagej.nih.gov/ij/plugins/download/ColorComparison_.java
