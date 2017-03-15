@@ -2,12 +2,14 @@ import matplotlib
 matplotlib.use('Qt5Agg')
 
 from scipy.io import wavfile
-
+import numpy as np
 # Grab your wav and filter it
-mywav = 'sample5.wav'
-rate, data = wavfile.read(mywav)
-print('Rate: ',rate)
-print("Dueration: ",data.size/rate)
+mywav = 'samp2.wav'
+rate, data2 = wavfile.read(mywav)
+data = []
+for x in data2:
+    data.append(np.mean(x))
+
 
 from matplotlib import pyplot as plt
 from matplotlib.pyplot import specgram
