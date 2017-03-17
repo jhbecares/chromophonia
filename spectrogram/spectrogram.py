@@ -1,10 +1,16 @@
+# -*- coding: utf-8 -*-
 import matplotlib
+import argparse
 matplotlib.use('Qt5Agg')
-
+#matplotlib.use('TkAgg')
 from scipy.io import wavfile
 import numpy as np
 # Grab your wav and filter it
-mywav = 'samp2.wav'
+ap = argparse.ArgumentParser()
+ap.add_argument("-w", "--wav", required=True, help = "Path to wav")
+args = vars(ap.parse_args())
+mywav = args["wav"]
+
 rate, data2 = wavfile.read(mywav)
 data = []
 for x in data2:
