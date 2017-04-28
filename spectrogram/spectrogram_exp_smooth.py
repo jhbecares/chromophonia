@@ -6,9 +6,7 @@ import numpy as np
 from matplotlib.colors import hsv_to_rgb
 
 # Grab your wav and filter it
-filename = 'samp1'
-mywav = filename+'.wav'
-output = '../images/new_ver/'+filename+'.png'
+mywav = 'sample.wav'
 rate, data2 = wavfile.read(mywav)
 data = []
 
@@ -65,5 +63,4 @@ for steps in range(0,nsamples):
 from pylab import imshow, show, get_cmap
 
 plt.imshow(final_values)
-plt.axis('off')
-plt.savefig(output,bbox_inches='tight')
+plt.show()

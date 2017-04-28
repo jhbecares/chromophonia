@@ -6,9 +6,7 @@ import numpy as np
 from matplotlib.colors import hsv_to_rgb
 
 # Grab your wav and filter it
-filename = 'samp1'
-mywav = filename+'.wav'
-output = '../images/new_ver/'+filename+'.png'
+mywav = 'sample.wav'
 rate, data2 = wavfile.read(mywav)
 data = []
 
@@ -22,9 +20,13 @@ from matplotlib.pyplot import specgram
 spectrogram_data, freqs, bins, im = specgram(data, NFFT=1024, Fs=rate)
 
 final_values = []
-
-
-
+maxamp = 0
+for cols in spectrogram_data:
+    for rows in cols:
+        if maxamp < rows:
+            maxamp = rows
+print("Máxima amplitud: ",maxamp)
+print("Nº de frecuencias capturadas: ",freqs.size)
 nsamples = 128
 
 rangesample = int(bins.size/nsamples)
@@ -32,7 +34,7 @@ rangesample = int(bins.size/nsamples)
 excess = ((bins.size % nsamples) != 0)
 
 print("Capturando el audio de ",bins.size," en ",nsamples," de tamaño ",rangesample)
-
+check = 0
 for steps in range(0,nsamples):
 
     maxfreq = 0
@@ -41,29 +43,34 @@ for steps in range(0,nsamples):
         n_steps = rangesample +  (bins.size % nsamples)
     else:
         n_steps = rangesample
-
+    aux_array = []
     for step_columns in range(0,n_steps):
         index = step_columns + steps
 
         maxfreq = spectrogram_data[0][index]
+        actual_frecuency = 0
+        for current_amplitude_frequency in range(0, freqs.size):
 
-        for step_frequency in range(0, freqs.size-1):
-            if step_frequency > 100 and step_frequency < 400:
-                if spectrogram_data[step_frequency][index] >= maxfreq:
-                    maxfreq = step_frequency
+            norm = actual_frecuency / (freqs.size - 1)
+            deg = 360 * norm
+            amp = np.log(current_amplitude_frequency) / np.log(maxamp)
 
-    aux_array = []
-    norm = maxfreq/(freqs.size-1)
-    deg = 360 * norm
-    col = hsv_to_rgb((deg,1,1))
+            if amp < 0.001:
+                amp = 0
+            print(actual_frecuency)
+            col = hsv_to_rgb((deg, amp, amp))
+            #print (col)
+            aux_array.append(col)
+            actual_frecuency +=1;
 
-    for h in range(0,nsamples):
-        aux_array.append(col)
     final_values.append(aux_array)
-
+    if(check == 50):
+        plt.imshow(final_values, cmap="hsv")
+        plt.show()
+        check = 0
+    check += 1
 
 from pylab import imshow, show, get_cmap
 
-plt.imshow(final_values)
-plt.axis('off')
-plt.savefig(output,bbox_inches='tight')
+plt.imshow(final_values,cmap="hsv")
+plt.show()
