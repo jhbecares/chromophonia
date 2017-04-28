@@ -13,11 +13,11 @@ ap.add_argument("-f", "--file", required=False, help="Path to the file")
 args = vars(ap.parse_args())
 
 # Grab your wav and filter it
-file = 'wavs/00/samp1.wav'
+file = 'wavs/00/sample3.wav'
 if (args["file"]):
     file = str(args["file"])
 filename = re.match( r'.*\/(.*?)\.wav', file, re.M|re.I).group(1)
-output = '../images/new_ver/'+filename+'.png'
+output = 'images/'+filename+'.png'
 print('Generating ',file,' chromoponia tag in ',output)
 rate, data2 = wavfile.read(file)
 data = []
