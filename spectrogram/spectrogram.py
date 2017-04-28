@@ -1,20 +1,31 @@
 import matplotlib
 matplotlib.use('Qt5Agg')
-
+import re
 from scipy.io import wavfile
 import numpy as np
 from matplotlib.colors import hsv_to_rgb
+import argparse
+
+# construct the argument parser and parse the arguments
+ap = argparse.ArgumentParser()
+# ap.add_argument("-i", "--image", required = True, help = "Path to the image")
+ap.add_argument("-f", "--file", required=False, help="Path to the file")
+args = vars(ap.parse_args())
 
 # Grab your wav and filter it
-filename = 'samp1'
-mywav = filename+'.wav'
+file = 'wavs/00/samp1.wav'
+if (args["file"]):
+    file = str(args["file"])
+filename = re.match( r'.*\/(.*?)\.wav', file, re.M|re.I).group(1)
 output = '../images/new_ver/'+filename+'.png'
-rate, data2 = wavfile.read(mywav)
+print('Generating ',file,' chromoponia tag in ',output)
+rate, data2 = wavfile.read(file)
 data = []
-
+print('Merging stereo data...')
 for x in data2:
     data.append(np.mean(x))
 
+print('Stereo data merged...')
 
 from matplotlib import pyplot as plt
 from matplotlib.pyplot import specgram
@@ -23,7 +34,7 @@ spectrogram_data, freqs, bins, im = specgram(data, NFFT=1024, Fs=rate)
 
 final_values = []
 
-
+print('Spectrogram created... ')
 
 nsamples = 128
 
@@ -31,7 +42,7 @@ rangesample = int(bins.size/nsamples)
 
 excess = ((bins.size % nsamples) != 0)
 
-print("Capturando el audio de ",bins.size," en ",nsamples," de tamaño ",rangesample)
+print("Creating slices of size ",bins.size," in ",nsamples," samples with size of ",rangesample)
 
 for steps in range(0,nsamples):
 
