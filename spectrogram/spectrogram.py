@@ -70,10 +70,10 @@ for steps in range(0,nsamples):
                 heappush(h, (spectrogram_data[step_frequency][index],step_frequency))
 
     aux_array = []
-    largest = nlargest(20,h)
+    largest = nlargest(40,h)
     largestfreqs = []
     for k,v in largest:
-        largestfreqs.append(pow(v,3))
+        largestfreqs.append(pow(v,4))
     maxfreq = np.mean(largestfreqs)
     #norm = maxfreq/(freqs.size-1)
     deg = (((pow(maxfreq,2)) % 350)+10.0)/360;
