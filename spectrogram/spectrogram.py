@@ -48,7 +48,8 @@ rangesample = int(bins.size/nsamples)
 excess = ((bins.size % nsamples) != 0)
 
 print("Creating slices of size ",bins.size," in ",nsamples," samples with size of ",rangesample)
-
+lv = -1
+sat = 1.0
 for steps in range(0,nsamples):
 
     maxfreq = 0
@@ -71,14 +72,21 @@ for steps in range(0,nsamples):
 
     aux_array = []
     largest = nlargest(40,h)
+    largest = largest[5:]
     largestfreqs = []
     for k,v in largest:
-        largestfreqs.append(pow(v,4))
+        largestfreqs.append(pow(v,2))
     maxfreq = np.mean(largestfreqs)
     #norm = maxfreq/(freqs.size-1)
-    deg = (((pow(maxfreq,2)) % 350)+10.0)/360;
+    deg = (((pow(maxfreq,2 )) % 350)+10.0)/360;
     #print(deg)
-    col = hsv_to_rgb((deg,1.0,1.0))
+    if (deg == lv ):
+        sat -= 0.005
+    else:
+        if (sat < 1):
+            sat += 0.1
+    lv = deg
+    col = hsv_to_rgb((deg,sat,pow(sat,3 )))
 
     for h in range(0,nsamples):
         aux_array.append(col)
@@ -87,6 +95,12 @@ for steps in range(0,nsamples):
 
 from pylab import imshow, show, get_cmap
 
-plt.imshow(final_values)
+plt.subplots_adjust(bottom = 0)
+plt.subplots_adjust(top = 1)
+plt.subplots_adjust(right = 1)
+plt.subplots_adjust(left = 0)
 plt.axis('off')
-plt.savefig(output,bbox_inches='tight')
+plt.tick_params(axis='both', left='off', top='off', right='off', bottom='off', labelleft='off', labeltop='off',
+                labelright='off', labelbottom='off')
+plt.imshow(final_values)
+plt.savefig(output,bbox_inches='tight', pad_inches=-1)
