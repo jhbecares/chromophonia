@@ -53,32 +53,43 @@ sat = 1.0
 for steps in range(0,nsamples):
 
     maxfreq = 0
+    vals = []
 
     if( (steps+1 == nsamples) and excess):
         n_steps = rangesample +  (bins.size % nsamples)
     else:
         n_steps = rangesample
-    h = []
+
     for step_columns in range(0,n_steps):
         index = step_columns + steps
 
         maxfreq = spectrogram_data[0][index]
 
+        h = []
         for step_frequency in range(0, freqs.size-1):
             if step_frequency > 3 and step_frequency < 513:
                 #if spectrogram_data[step_frequency][index] >= maxfreq:
                 #    maxfreq = step_frequency
-                heappush(h, (spectrogram_data[step_frequency][index],step_frequency))
+                if spectrogram_data[step_frequency][index] < 0.0000001:
+                    heappush(h, (0, step_frequency))
+                else:
+                    heappush(h, (spectrogram_data[step_frequency][index],step_frequency))
+
+        largest = nlargest(50, h)
+        largestfreqs = []
+        fact = 1
+        for k, v in largest:
+            largestfreqs.append(pow(v, 4)*fact)
+            fact /= 1.3
+        #print(largestfreqs)
+        vals.append(np.mean(largestfreqs))
+
 
     aux_array = []
-    largest = nlargest(40,h)
-    largest = largest[5:]
-    largestfreqs = []
-    for k,v in largest:
-        largestfreqs.append(pow(v,2))
-    maxfreq = np.mean(largestfreqs)
+    maxfreq = np.mean(vals)
+    #print(maxfreq)
     #norm = maxfreq/(freqs.size-1)
-    deg = (((pow(maxfreq,2 )) % 350)+10.0)/360;
+    deg = (((pow(maxfreq,4)) % 350)+10.0)/360;
     #print(deg)
     if (deg == lv ):
         sat -= 0.005
