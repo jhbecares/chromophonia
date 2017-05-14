@@ -122,13 +122,19 @@ plt.show(block=False)
 # Computer Vision with OpenCV Library, from G. Bradski and
 # A. Kaehler'' p. 203.  print "La super distancia: ",
 
-# print "La super distancia con CV_COMP_CORREL: [-1;1] where 1 is perfect match and -1 is the worst.: ", cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_CORREL)
+print "La super distancia con CV_COMP_CORREL: [-1;1] where 1 is perfect match and -1 is the worst.: ", cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_CORREL)
 # print "La super distancia CV_COMP_CHISQR: [0;+infinty] where 0 is perfect match and mismatch is unbounded: ", cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_CHISQR)
 # print "La super distancia CV_COMP_INTERSECT: ", cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_INTERSECT)
-# print "La super distancia CV_COMP_BHATTACHARYYA (0 to 1, where 0 is perfect match and 1 is mismatch): ", cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_BHATTACHARYYA)
+print "La super distancia CV_COMP_BHATTACHARYYA (0 to 1, where 0 is perfect match and 1 is mismatch): ", cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_BHATTACHARYYA)
 
 
 print  cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_CORREL)
-print  cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_CHISQR)
-print  cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_INTERSECT)
-print  cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_BHATTACHARYYA)
+# print  cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_CHISQR)
+# print  cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_INTERSECT)
+
+val = cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_BHATTACHARYYA)
+#if val <= 0.45:
+#        print  cv2.compareHist(hist, hist2, cv2.cv.CV_COMP_BHATTACHARYYA)
+
+#if val > 0.7:
+print val
