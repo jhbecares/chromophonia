@@ -17,6 +17,7 @@ images = {}
 
 # loop over the image paths
 for i in xrange(1,len(arrSongs)):
+    print i, ": ", arrSongs[i]
     image = cv2.imread(arrSongs[i])
     images[arrSongs[i]] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     
@@ -29,7 +30,8 @@ for i in xrange(1,len(arrSongs)):
     index[arrSongs[i]] = hist
 
 
-queryImage = arrSongs[1]
+idx = raw_input('Enter number of song to compare: ')
+queryImage = arrSongs[int(idx)]
 
 OPENCV_METHODS = (
     ("Correlation", cv2.cv.CV_COMP_CORREL),
