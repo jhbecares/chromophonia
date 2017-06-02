@@ -19,7 +19,6 @@ index = {}
 images = {}
 
 # loop over the image paths
-# crea el índice
 for i in xrange(1,len(arrSongs)):
     print i, ": ", arrSongs[i]
     image = cv2.imread(arrSongs[i])
@@ -36,6 +35,7 @@ for i in xrange(1,len(arrSongs)):
 
 idx = raw_input('Enter number of song to compare: ')
 queryImage = arrSongs[int(idx)]
+
 
 OPENCV_METHODS = (
     ("Correlation", cv2.cv.CV_COMP_CORREL),
@@ -60,12 +60,13 @@ for (methodName, method) in OPENCV_METHODS:
     for (k, hist) in index.items():
 	# compute the distance between the two histograms
 	# using the method and update the results dictionary
-	d = cv2.compareHist(index[arrSongs[i]], hist, method)
+	d = cv2.compareHist(index[arrSongs[int(idx)]], hist, method)
 	results[k] = d
  
     # sort the results
     results = sorted([(v, k) for (k, v) in results.items()], reverse = reverse)
 
+    results = results[1:]
 
     # show the query image
     fig = plt.figure("Query")
@@ -88,8 +89,6 @@ for (methodName, method) in OPENCV_METHODS:
     #fig.tight_layout()
     print methodName
     for (i, (v, k)) in enumerate(results):
-        if i != queryImage:
-            
             if i >= countMax / 2:
                 # show the result
 	        ax = fig.add_subplot(2, countMax/2, i+1)
@@ -122,25 +121,3 @@ for (methodName, method) in OPENCV_METHODS:
 
 plt.show()
         
-# for i in xrange(1,len(arrSongs)):
-#     image1 = cv2.imread(arrSongs[i])
-#     chans1 = cv2.split(image1)
-#     histLen = 1
-#     hist2Len = 1
-#     hist = {}
-#     hist2 = {}
-#     for j in xrange(i+1, len(arrSongs)):
-#         #os.system('python compare_histograms_1D.py -i "' + arrSongs[i] + '" -i2 "' + arrSongs[j] + '"')
-#         image2 = cv2.imread(arrSongs[j])
-#         chans2 = cv2.split(image2)
-
-#         for (chan, color) in zip(chans1, colors):
-#             hist[histLen] = cv2.calcHist([chan], [0], None, [256], [0,256])
-#             histLen = histLen + 1
-
-#         for (chan, color) in zip(chans2, colors):
-#             hist2[hist2Len] = cv2.calcHist([chan], [0], None, [256], [0,256])
-#             hist2Len = hist2Len + 1
-            
-#         print "hist1: ", hist
-#         print "hist2: ", hist2
